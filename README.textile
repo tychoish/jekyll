@@ -170,9 +170,11 @@ read from the filename (and is required!) to be used elsewhere in Jekyll.
 If you want WordPress-style pretty URLs that leave off the .html, you can
 change the permalink style to 'pretty' and directories corresponding to the
 date parts and post name will be made and an index.html will be placed in the
-leaf directory resulting in URLs like 2008/11/17/blogging-like-a-hacker/.
+leaf directory resulting in URLs like 2008/11/17/blogging-like-a-hacker/. If
+you prefer to leave off the day from the permalink (eg. 
+2008/11/blogging-like-a-hacker/), you can change the option to 'handsome.'
 
-  $ jekyll --permalink [date|none|pretty]
+  $ jekyll --permalink [date|none|pretty|handsome]
 
 h2. Configuration File
 

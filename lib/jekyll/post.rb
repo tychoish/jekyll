@@ -86,6 +86,8 @@ module Jekyll
     # permalink is absent, set to the default date
     # e.g. "/2008/11/05/" if the permalink style is :date, otherwise nothing
     #
+    # If the permalink is set to handsome, a differet date string is generated.
+    #    
     # Returns <String>
     def dir
       if permalink
@@ -94,6 +96,8 @@ module Jekyll
         prefix = self.categories.empty? ? '' : '/' + self.categories.join('/')
         if [:date, :pretty].include?(self.site.permalink_style)
           prefix + date.strftime("/%Y/%m/%d/")
+        elsif [:date, :handsome].include?(self.site.permalink_style)
+          prefix + date.strftime("/%Y/%m/")
         else
           prefix + '/'
         end
@@ -114,7 +118,11 @@ module Jekyll
     #
     # Returns <String>
     def url
-      ext = self.site.permalink_style == :pretty ? '' : '.html'
+      if self.site.permalink_style == :pretty or :handsome
+        ext = ''
+      else
+        ext = '.html'
+      end
       permalink || self.id + ext
     end
 
@@ -174,7 +182,7 @@ module Jekyll
 
       path = File.join(dest, self.url)
 
-      if self.site.permalink_style == :pretty
+      if self.site.permalink_style == :pretty or :handsome
         FileUtils.mkdir_p(path)
         path = File.join(path, "index.html")
       end

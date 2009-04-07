@@ -196,6 +196,14 @@ module Jekyll
     #
     # Returns <Hash>
     def to_liquid
+     if self.data.key? "time"
+        time = Time.parse self.data["time"]
+        self.date = Time.mktime(self.date.year,
+                                self.date.month,
+                                self.date.day,
+                                time.hour,
+                                time.min)
+      end
       { "title" => self.data["title"] || self.slug.split('-').select {|w| w.capitalize! || w }.join(' '),
         "url" => self.url,
         "date" => self.date,
